@@ -114,6 +114,7 @@ app.get("/arrowhead/stats", (req, res) => {
 });
 
 app.get("/arrowhead/stats/:nodeid", (req, res) => {
+  var nodeid = req.params.nodeid;
   arrowheadStats.find({node_id: nodeid}, function(err, result) {
     if (err) throw err;
     res.send(result);
@@ -128,6 +129,7 @@ app.get("/jungle/stats", (req, res) => {
 });
 
 app.get("/jungle/stats/:nodeid", (req, res) => {
+  var nodeid = req.params.nodeid;
   arrowheadStats.find({node_id: nodeid}, function(err, result) {
     if (err) throw err;
     res.send(result);
