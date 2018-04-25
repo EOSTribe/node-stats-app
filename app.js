@@ -66,7 +66,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://eosslc.com');
+    res.setHeader('Access-Control-Allow-Origin', 'http://eosslc.com, http://eostribe.io');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT');
@@ -96,6 +96,7 @@ app.get("/jungle/nodes", (req, res) => {
   });
 });
 
+
 app.get("/bpstats", (req, res) => {
   BPStats.find({}, function(err, result) {
     if (err) throw err;
@@ -109,6 +110,14 @@ app.get("/bpstats/:name", (req, res) => {
     if (err) throw err;
     res.send(result);
   });
+});
+
+app.get("/bpstats/:name/last", (req, res) => {
+  var name = req.params.name;
+  BPStats.find({producer: name}, function(err, result) {
+    if (err) throw err;
+    res.send(result);
+  }).limit(1).sort({$natural:-1});
 });
 
 app.post("/bpstats", (req, res) => {
